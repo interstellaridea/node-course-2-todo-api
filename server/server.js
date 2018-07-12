@@ -45,6 +45,6 @@ app.get('/todos/:id', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(`Started up ${PORT}`);
+app.listen(PORT, () => console.log(`Started up ${PORT}`));
 
 module.exports = { app };
