@@ -44,6 +44,7 @@ app.get('/todos/:id', (req, res) => {
     })
 });
 
-app.listen(3000, () => console.log('Started on :3000') );
+const PORT = process.env.PORT || 3000;
+app.listen(`Started up ${PORT}`);
 
 module.exports = { app };
