@@ -116,6 +116,22 @@ app.get('/users/me', authenticate, (req, res) => {
   res.send(req.user);
 });
 
+// POST /users/login {email, password}
+app.post('/users/login', (req, res) => {
+  const body = _.pick(req.body, ['email', 'password']);
+  // in mongo method, returnign promise
+  // verify user by email
+  // get pass prop bcrypt compare 
+  User.findByCredentials(body.email, body.password)
+    .then((user) => {
+      user.generateAuthToken().then((token) => {
+        res.header('x-auth', token).send(user);
+      });
+    })
+    .catch((e) => {
+      res.status(400).send()
+    });
+});
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Started up ${PORT}`));
